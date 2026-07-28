@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: "Datadog -> ntfy.sh push bridge for the refined-github Synthetics dashboard"
+
+Parameters:
+  NtfyUrl:
+    Type: String
+    Description: "Full ntfy topic URL, e.g. https://ntfy.sh/your-private-topic"
+  NtfyToken:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: "Optional ntfy access token for protected topics"
+
+Resources:
+  NtfyBridgeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: refined-github-ntfy-bridge
+      Runtime: python3.12
+      Handler: ntfy_bridge.handler
+      CodeUri: .
+      MemorySize: 128
+      Timeout: 15
+      Environment:
+        Variables:
+          NTFY_URL: !Ref NtfyUrl
+          NTFY_TOKEN: !Ref NtfyToken
+      FunctionUrlConfig:
+        AuthType: NONE
+
+Outputs:
+  FunctionUrl:
+    Description: "Paste this URL into datadog/terraform.tfvars as webhook_url"
+    Value: !GetAtt NtfyBridgeFunctionUrl.FunctionUrl
