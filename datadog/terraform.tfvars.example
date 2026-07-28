@@ -1,0 +1,24 @@
+# ---------------------------------------------------------------------------
+# Example variable values. Copy to terraform.tfvars and edit.
+#
+# DD_API_KEY / DD_APP_KEY are intentionally NOT set here.
+# Provide them at apply time from the environment so they are never committed:
+#   export DD_API_KEY=...
+#   export DD_APP_KEY=...
+#   terraform init && terraform apply -var-file=terraform.tfvars
+# ---------------------------------------------------------------------------
+
+datadog_site            = "datadoghq.com"   # use "datadoghq.eu" if your org is EU
+repo_full_name          = "leandro4979-hub/refined-github"
+upstream_repo_full_name = "refined-github/refined-github"
+service_tag             = "refined-github"
+
+# Recommended: the ntfy-bridge Lambda Function URL (see lambda/README.md).
+# Fallback: "https://ntfy.sh/<your-private-topic>".
+webhook_url = ""
+
+# Only used by the direct-to-ntfy fallback.
+webhook_custom_headers = {}
+
+latency_threshold_ms    = 2000   # alert when p95 latency > 2000 ms
+failure_ratio_threshold = 0.05   # alert when failed-run ratio > 5% (== <95% success)
