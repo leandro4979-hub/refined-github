@@ -9,6 +9,7 @@ dashboard, tests, monitors, and webhook are version-controlled and reproducible.
 | Resource | Purpose |
 | --- | --- |
 | `datadog_synthetics_test.repo_page` | API test — repo page availability + <2s latency (`github.com/leandro4979-hub/refined-github`) |
+| `datadog_synthetics_test.repo_page_browser` | Browser test — loads repo page in a real browser, asserts URL + repo-name content renders |
 | `datadog_synthetics_test.ci_runs` | API test — GitHub Actions runs API health (CI pipeline reliability) |
 | `datadog_synthetics_test.upstream_release` | API test — upstream refined-github latest release feed (extension release availability) |
 | `datadog_dashboard_json.refined_github` | Dashboard — success rate, p95 latency, runs-by-result, failed-runs toplist |
